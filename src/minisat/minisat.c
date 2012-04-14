@@ -26,6 +26,8 @@ OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWA
 #include <stdlib.h>
 #include <time.h>
 
+#include "minisat.h"
+
 //=================================================================================================
 // DIMACS Parser:
 
@@ -89,28 +91,37 @@ static lbool parse_DIMACS_main(char* in, solver* s) {
 
 //=================================================================================================
 
+solver * s;
+solver * get_solver() { return s; }
+
+/*int *assignments() {
+    int k = s->model.size;
+    int i = 0;
+    int * a = malloc(k*sizeof(int));
+    for (i = 0; i < k; i++)
+        a[i] = s->model.ptr[i] == l_True;
+    return a;
+}
+*/
+
+int assignment_size() {
+    return s->model.size;
+}
+
+int get_assignment(int i) {
+    return s->model.ptr[i] == l_True;
+}
+
 int solve(char *problem) {
-    solver* s = solver_new();
+    s = solver_new();
     lbool st;
     int ret;
 
     st = parse_DIMACS_main(problem,s);
     if (st == l_False) {
-        solver_delete(s);
         return 0;
     }
     st = solver_solve(s,0,0);
-    if (st == l_True) {
-        ret = 1;
-        int k;
-        for (k = 0; k < s->model.size; k++)
-            printf("x%d=%d ", k, s->model.ptr[k] == l_True );
-        printf("\n");
-    }
-    else {
-        ret = 0;
-    }
-    solver_delete(s);
-    return ret;
+    return (st == l_True) ? 1 : 0;
 }
 
