@@ -35,6 +35,7 @@ create large clusters and split up the search space of larger problems.
 3. Progress?
 ---
 
+* 15 April 2012: Bindings are created; not sure they're optimal.
 * 12 April 2012: This readme was created.
 
 [1]: http://minisat.se/
