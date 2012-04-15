@@ -91,16 +91,6 @@ static lbool parse_DIMACS_main(char* in, solver* s) {
 
 //=================================================================================================
 
-/*int *assignments() {
-    int k = s->model.size;
-    int i = 0;
-    int * a = malloc(k*sizeof(int));
-    for (i = 0; i < k; i++)
-        a[i] = s->model.ptr[i] == l_True;
-    return a;
-}
-*/
-
 int assignment_size(solver *s) {
     return s->model.size;
 }
