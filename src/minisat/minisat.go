@@ -7,24 +7,25 @@ package minisat
 */
 import "C"
 
-func SolveDIMACS (text string) bool {
-    res := C.solve(C.CString(text))
-    var status bool
-
+func SolveDIMACS (text string) (solvable bool, soln []bool) {
+    slv := C.make_solver()
+    res := C.solve(slv,C.CString(text))
     if res == 1 {
-        status = true
+        solvable = true
+        soln = solution(slv)
     } else {
-        status = false
+        solvable = false
+        soln = nil
     }
-
-    return status
+    C.solver_delete(slv)
+    return solvable, soln
 }
 
-func Solution() []bool {
-    size := C.assignment_size()
+func solution(slv *C.solver) []bool {
+    size := C.assignment_size(slv)
     var assignment []bool = make([]bool,size)
     for i := 0; C.int(i) < size; i++ {
-        if C.get_assignment(C.int(i)) == 1 {
+        if C.get_assignment(slv,C.int(i)) == 1 {
             assignment[i] = true
         } else {
             assignment[i] = false
@@ -32,8 +33,3 @@ func Solution() []bool {
     }
     return assignment
 }
-
-func Finish() {
-    C.solver_delete(C.get_solver())
-}
-
