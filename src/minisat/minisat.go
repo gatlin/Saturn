@@ -1,3 +1,11 @@
+/*
+   Package minisat wraps the C version of MiniSAT and provides
+   a simple interface.
+
+   SolveDIMACS accepts a DIMACS string representation of a SAT problem.
+   The function returns whether or not the problem is satisfiable, and
+   if so, what the assignments are (as a bool slice).
+*/
 package minisat
 
 /*
@@ -18,7 +26,7 @@ func SolveDIMACS(text string) (solvable bool, soln []bool) {
 		soln = nil
 	}
 	C.solver_delete(slv)
-	return solvable, soln
+	return
 }
 
 func solution(slv *C.solver) []bool {
