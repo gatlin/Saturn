@@ -32,7 +32,18 @@ Saturn is based on MiniSAT, though I hope to add more solving backends in the
 future to take a portfolio approach. Saturn's aim is to make it painless to
 create large clusters and split up the search space of larger problems.
 
-3. Progress?
+3. How do I build it?
+---
+
+1. Make sure Go 1 is installed.
+2. `cd` to where this repository is checked out.
+3. `export GOPATH=$PWD/`
+4. `go install saturn`
+
+Saturn will be installed and built in the `bin/` directory. You can also `go
+install test` to install the test program.
+
+4. Progress?
 ---
 
 * 21 April 2012: Networked SAT oracle! (view history)

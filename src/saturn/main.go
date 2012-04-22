@@ -4,6 +4,7 @@ import (
     "fmt"
     "net"
     "minisat"
+    "bytes"
 )
 
 func main() {
@@ -31,12 +32,26 @@ func handleConnection(c net.Conn) {
         fmt.Printf("ERROR on read\n")
     }
 
-    solvable, _ := minisat.SolveDIMACS(string(buffer))
+    solvable, solution := minisat.SolveDIMACS(string(buffer))
     if solvable {
-        c.Write([]byte("Solvable"))
+        c.Write(writeSolution(solution))
     } else {
-        c.Write([]byte("Not solvable"))
+        c.Write([]byte("0\n"))
     }
     c.Close()
 }
 
+func writeSolution(b []bool) []byte {
+    buffer := bytes.NewBufferString("");
+    fmt.Fprint(buffer,"1\n")
+    for variable,val := range b {
+        var t int
+        if val {
+            t = 1
+        } else {
+            t = 0
+        }
+        fmt.Fprintf(buffer,"%d %d\n",variable+1,t)
+    }
+    return buffer.Bytes()
+}
