@@ -46,6 +46,7 @@ install test` to install the test program.
 4. Progress?
 ---
 
+* 22 April 2012: Saturn now has an output format and returns that
 * 21 April 2012: Networked SAT oracle! (view history)
 * 15 April 2012: Bindings are created; not sure they're optimal.
 * 12 April 2012: This readme was created.
