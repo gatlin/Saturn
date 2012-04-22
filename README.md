@@ -17,7 +17,7 @@ Saturn is a distributed SAT solver based on [MiniSat][1]. Its aims are to be
 ---
 
 A single Saturn instance is aware of other instances on the same network using
-Zeroconf. Configuration is automatic. It listens on the network for problems in
+multicast. Configuration is automatic. It listens on the network for problems in
 the [DIMACS][2] format.
 
 Then, the problem is split up by making intelligent guess assignments for
