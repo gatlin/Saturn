@@ -14,6 +14,8 @@ func main() {
         fmt.Printf("ERROR on listen\n")
     }
 
+    defer ln.Close()
+
     /* each request gets a goroutine */
     for {
         conn, err := ln.Accept()
